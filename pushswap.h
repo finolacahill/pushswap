@@ -16,19 +16,19 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include "libft/ft_printf.h"
+# include "libft/libft.h"
+# include "libft/get_next_line.h"
 
-typedef struct		s_dlist
+typedef struct		s_count
 {
-	int             content;
-	struct t_dlist	*next;
-    struct t_dlist  *prev;
-}					t_dlist;
+	int             a;
+	int				b;
+}					t_count;
 
-t_dlist ft_addlink(t_dlist link, int input);
-void	ft_swapthem(int *stack);
-void	ft_push(int *stack1, int *stack2);
-void	ft_print_stacks(int *stack1, int *stack2);
-void	ft_rotate(int *stack);
-void	ft_revrotate(int *stack);
-void	ft_move(char *instruction, int *a, int *b);
+void	ft_move(char *move, int *a, int *b, t_count *count);
+void	ft_print_stacks(int *a, int *b, t_count *count);
+int		ft_pushswap_usage();
+int		ft_pushswap_ko();
+int		ft_pushswap_ok();
 #endif
