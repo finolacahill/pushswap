@@ -1,8 +1,8 @@
 #include "pushswap.h"
 
-int     ft_pushswap_usage()
+int     ft_pushswap_error()
 {
-    ft_printf("Usage: push swap checker takes one or more integers as input.\n");
+    ft_printf("Error\n");
     return (0);
 }
 
