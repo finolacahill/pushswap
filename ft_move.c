@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_move.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fcahill <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/22 11:35:41 by fcahill           #+#    #+#             */
+/*   Updated: 2019/05/22 11:38:57 by fcahill          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pushswap.h"
 
-static void    ft_swapthem(int* stack, int count)
+static void	ft_swapthem(int *stack, int count)
 {
-	int    temp;
+	int		temp;
 
 	if (count > 1)
 	{
 		temp = stack[0];
 		stack[0] = stack[1];
-		stack[1] = temp;       
+		stack[1] = temp;
 	}
 }
 
-static void ft_push(int* a, int* b, int count_a, int count_b)
+static void	ft_push(int *a, int *b, int count_a, int count_b)
 {
-	int     len;
+	int		len;
 
 	len = count_b;
 	if (count_a > 0)
@@ -26,7 +38,7 @@ static void ft_push(int* a, int* b, int count_a, int count_b)
 		}
 		b[0] = a[0];
 		len = 0;
-		while (len != count_a - 1) 
+		while (len != count_a - 1)
 		{
 			a[len] = a[len + 1];
 			++len;
@@ -35,16 +47,16 @@ static void ft_push(int* a, int* b, int count_a, int count_b)
 	}
 }
 
-static void    ft_rotate(int* stack, int count)
+static void	ft_rotate(int *stack, int count)
 {
-	int     i;
-	int     temp;
+	int		i;
+	int		temp;
 
 	i = 0;
 	temp = stack[0];
 	if (count > 1)
 	{
-		while (i  < count - 1)
+		while (i < count - 1)
 		{
 			stack[i] = stack[i + 1];
 			++i;
@@ -53,9 +65,9 @@ static void    ft_rotate(int* stack, int count)
 	}
 }
 
-static void    ft_revrotate(int* stack, int count)
+static void	ft_revrotate(int *stack, int count)
 {
-	int    temp;
+	int		temp;
 
 	if (count > 1)
 	{
@@ -65,13 +77,13 @@ static void    ft_revrotate(int* stack, int count)
 			stack[count - 1] = stack[count - 2];
 			--count;
 		}
-		stack[count -1] = temp;
+		stack[count - 1] = temp;
 	}
 }
 
-void    ft_move(char *move, int *a, int *b, t_count *count)
+void		ft_move(char *move, int *a, int *b, t_count *count)
 {
-	if (ft_strcmp(move,"sa") == 0 || ft_strcmp(move, "ss") == 0)
+	if (ft_strcmp(move, "sa") == 0 || ft_strcmp(move, "ss") == 0)
 		ft_swapthem(a, count->a);
 	if (ft_strcmp(move, "sb") == 0 || ft_strcmp(move, "ss") == 0)
 		ft_swapthem(b, count->b);
