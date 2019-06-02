@@ -12,7 +12,7 @@
 
 #include "pushswap.h"
 
-static void	ft_swapthem(int *stack, int count)
+void	ft_swapthem(int *stack, int count)
 {
 	int		temp;
 
@@ -24,7 +24,7 @@ static void	ft_swapthem(int *stack, int count)
 	}
 }
 
-static void	ft_push(int *a, int *b, int count_a, int count_b)
+void	ft_push(int *a, int *b, int count_a, int count_b)
 {
 	int		len;
 
@@ -47,7 +47,7 @@ static void	ft_push(int *a, int *b, int count_a, int count_b)
 	}
 }
 
-static void	ft_rotate(int *stack, int count)
+void	ft_rotate(int *stack, int count)
 {
 	int		i;
 	int		temp;
@@ -65,7 +65,7 @@ static void	ft_rotate(int *stack, int count)
 	}
 }
 
-static void	ft_revrotate(int *stack, int count)
+void	ft_revrotate(int *stack, int count)
 {
 	int		temp;
 
@@ -81,30 +81,30 @@ static void	ft_revrotate(int *stack, int count)
 	}
 }
 
-void		ft_move(char *move, int *a, int *b, t_count *count)
+void		ft_move(char *move, t_stacks *stack)
 {
 	if (ft_strcmp(move, "sa") == 0 || ft_strcmp(move, "ss") == 0)
-		ft_swapthem(a, count->a);
+		ft_swapthem(stack->a, stack->a_count);
 	if (ft_strcmp(move, "sb") == 0 || ft_strcmp(move, "ss") == 0)
-		ft_swapthem(b, count->b);
-	if (count->b > 0 && ft_strcmp(move, "pa") == 0)
+		ft_swapthem(stack->b, stack->b_count);
+	if (stack->b_count > 0 && ft_strcmp(move, "pa") == 0)
 	{
-		ft_push(b, a, count->b, count->a);
-		++count->a;
-		--count->b;
+		ft_push(stack->b, stack->a, stack->b_count, stack->a_count);
+		++stack->a_count;
+		--stack->b_count;
 	}
-	if (count->a > 0 && ft_strcmp(move, "pb") == 0)
+	if (stack->a_count > 0 && ft_strcmp(move, "pb") == 0)
 	{
-		ft_push(a, b, count->a, count->b);
-		++count->b;
-		--count->a;
+		ft_push(stack->a, stack->b, stack->a_count, stack->b_count);
+		++stack->b_count;
+		--stack->a_count;
 	}
 	if (ft_strcmp(move, "ra") == 0 || ft_strcmp(move, "rr") == 0)
-		ft_rotate(a, count->a);
+		ft_rotate(stack->a, stack->a_count);
 	if (ft_strcmp(move, "rb") == 0 || ft_strcmp(move, "rr") == 0)
-		ft_rotate(b, count->b);
+		ft_rotate(stack->b, stack->b_count);
 	if (ft_strcmp(move, "rra") == 0 || ft_strcmp(move, "rrr") == 0)
-		ft_revrotate(a, count->a);
+		ft_revrotate(stack->a, stack->a_count);
 	if (ft_strcmp(move, "rrb") == 0 || ft_strcmp(move, "rrr") == 0)
-		ft_revrotate(b, count->b);
+		ft_revrotate(stack->b, stack->b_count);
 }
