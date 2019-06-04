@@ -40,7 +40,7 @@ void    ft_sort_a(t_stacks *stack, int first, int last)
     {
         if (is_sorted(stack->a, stack->a_count) == 0)
         {
-        pivot = find_median(stack->a, first, last);
+        pivot = find_median(stack, 'a');
         while (push + rev < last - first)
         {
             if (stack->a[first] <= pivot)
@@ -109,17 +109,28 @@ void    ft_sort_a(t_stacks *stack, int first, int last)
 
 // SORT THREE:
 */
-int     find_median(int *array, int start, int end)
+int     find_median(t_stacks *stack, char name)
 {
     int    *cpy;
     int    len;
     int    med;
 
-    if (!(cpy = (int *)malloc(sizeof(int) * (end - start))))
-        return (-1);
-    cpy = ft_intarraycpy(array, cpy, end);
-    len = end - start; //maybe a minus 1 here/ Doubts.
-    ft_perf_quicksort(cpy, start, end);
+   
+    if (name == 'a')
+    {
+         if (!(cpy = (int *)malloc(sizeof(int) * (stack->a_count))))
+            return (-1);
+        cpy = ft_intarraycpy(stack->a, cpy, stack->a_count);
+        len = stack->a_count;
+    }
+    if (name == 'b')
+    {
+         if (!(cpy = (int *)malloc(sizeof(int) * (stack->b_count + 1))))
+            return (-1);
+        cpy = ft_intarraycpy(stack->b, cpy, stack->b_count);
+        len = stack->b_count;
+    }
+    ft_perf_quicksort(cpy, 0, len);
     med = cpy[len / 2];
     free(cpy);
     return (med);

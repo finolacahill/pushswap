@@ -51,8 +51,14 @@ void			ft_revrotate(int *stack, int count);
 void			ft_perf_quicksort(int *array,int first,int last);
 void			ft_sort_a(t_stacks *stack, int first, int last);
 void			ft_sort_b(t_stacks *stack, int first, int last);
-int				find_median(int *array, int start, int end);
+int				find_median(t_stacks *stack, char name);
 void     		ft_sort_three(t_stacks *stack, char name);
 void    		ft_sort_two(t_stacks *stack);
+void			ft_sort_four(t_stacks *stack, char name);
 void    		ft_sort_five(t_stacks *stack, char name);
+void			ft_sort_ten(t_stacks *stack, char name, int len);
+void			ft_sort_to_ten(t_stacks *stack, char name);
+void			ft_push_n_to_name(t_stacks *stack, int n, char name);
+void    		ft_push_all_to_name(t_stacks *stack, char name);
+void    		ft_move_to_top(t_stacks *stack, char name, int index);
 #endif

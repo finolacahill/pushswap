@@ -23,13 +23,12 @@ int			main(int argc, char **argv)
 	
 //	 
 	int i = 0;
-	while(i++ < 3)
-		ft_move("pb", &stack);
-		ft_sort_three(&stack, 'b');
-	//ft_sort_two(&stack);
-	//ft_sort_five(&stack, 'b');
-	
-	//printf(" median = %d\n", find_median(stack.a, 0, stack.a_count));
+	//while(i++ < 11)
+	//	ft_move("pb", &stack);
+	//ft_sort_to_ten(&stack, 'a');
+	ft_print_stacks(&stack);
+	ft_sort_three(&stack, 'a');
+//	ft_move_to_top(&stack, 'a', 4);
 	ft_print_stacks(&stack); // mini visu to be deleted later
 	}
 	return (0);
