@@ -108,3 +108,14 @@ void		ft_move(char *move, t_stacks *stack)
 	if (ft_strcmp(move, "rrb") == 0 || ft_strcmp(move, "rrr") == 0)
 		ft_revrotate(stack->b, stack->b_count);
 }
+
+int		ft_move_and_save(char *move, t_stacks *stack, t_list **instructions)
+{
+	t_list *new_move;
+
+	ft_move(move, stack);
+	if (!(new_move = ft_lstnew(&move, 1)))
+		return (0);
+	ft_lstadd(instructions, new_move);
+	return (1);
+}

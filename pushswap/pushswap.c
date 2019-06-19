@@ -8,7 +8,12 @@ int			main(int argc, char **argv)
     
 	t_stacks    stack;
 	char	*instruction;
+	t_list  *instructions;
+	t_list  *tracker;
+	int		start;
 
+	start = 1;
+	instructions = ft_lstnew(&start, 1);
 	stack.b_count = 0;
 	if (argc > 1)
 	{
@@ -25,11 +30,18 @@ int			main(int argc, char **argv)
 	int i = 0;
 	//while(i++ < 11)
 	//	ft_move("pb", &stack);
-	//ft_sort_to_ten(&stack, 'a');
+	if (ft_sort_to_ten(&stack, 'a', &instructions) == 0)
+		ft_pushswap_error();
 	ft_print_stacks(&stack);
-	ft_sort_three(&stack, 'a');
+//	ft_sort_three(&stack, 'a');
 //	ft_move_to_top(&stack, 'a', 4);
 	ft_print_stacks(&stack); // mini visu to be deleted later
+	tracker = instructions->next;
+	while (tracker->next != NULL)
+	{
+		ft_printf("%s\n", tracker->content);
+		tracker = tracker->next;
+	}
 	}
 	return (0);
 }
