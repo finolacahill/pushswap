@@ -29,6 +29,7 @@ typedef struct	s_stacks
 }				t_stacks;
 //checker functions
 void			ft_move(char *move, t_stacks *stacks);
+int				ft_move_and_save(char *move, t_stacks *stacks, t_list **instructions);
 void			ft_print_stacks(t_stacks *stack);
 int				ft_pushswap_error(void);
 int				ft_pushswap_ko(void);
@@ -52,13 +53,13 @@ void			ft_perf_quicksort(int *array,int first,int last);
 void			ft_sort_a(t_stacks *stack, int first, int last);
 void			ft_sort_b(t_stacks *stack, int first, int last);
 int				find_median(t_stacks *stack, char name);
-void     		ft_sort_three(t_stacks *stack, char name);
-void    		ft_sort_two(t_stacks *stack);
-void			ft_sort_four(t_stacks *stack, char name);
-void    		ft_sort_five(t_stacks *stack, char name);
-void			ft_sort_ten(t_stacks *stack, char name, int len);
-void			ft_sort_to_ten(t_stacks *stack, char name);
-void			ft_push_n_to_name(t_stacks *stack, int n, char name);
-void    		ft_push_all_to_name(t_stacks *stack, char name);
-void    		ft_move_to_top(t_stacks *stack, char name, int index);
+int     		ft_sort_three(t_stacks *stack, char name, t_list **moves);
+int				ft_sort_two(t_stacks *stack, t_list **moves);
+int				ft_sort_four(t_stacks *stack, char name, t_list **moves);
+int    			ft_sort_five(t_stacks *stack, char name,  t_list **moves);
+int				ft_sort_ten(t_stacks *stack, char name, int len,  t_list **moves);
+int				ft_sort_to_ten(t_stacks *stack, char name, t_list **moves);
+int				ft_push_n_to_name(t_stacks *stack, int n, char name, t_list **instructions);
+int	    		ft_push_all_to_name(t_stacks *stack, char name, t_list **instructions);
+int	    		ft_move_to_top(t_stacks *stack, char name, int index, t_list **instructions);
 #endif

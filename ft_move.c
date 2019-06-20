@@ -18,33 +18,54 @@ void	ft_swapthem(int *stack, int count)
 
 	if (count > 1)
 	{
-		temp = stack[0];
+		temp = stack[0]; 
 		stack[0] = stack[1];
 		stack[1] = temp;
 	}
 }
-
-void	ft_push(int *a, int *b, int count_a, int count_b)
+void	ft_push_a(t_stacks *stack)
 {
 	int		len;
 
-	len = count_b;
-	if (count_a > 0)
+	len = stack->a_count;
+	while (stack->b_count > 0 && len > 0)
 	{
-		while (len > 0)
-		{
-			b[len] = b[len - 1];
-			--len;
-		}
-		b[0] = a[0];
-		len = 0;
-		while (len != count_a - 1)
-		{
-			a[len] = a[len + 1];
-			++len;
-		}
-		a[count_a - 1] = 0;
+		stack->a[len] = stack->a[len - 1];
+		--len;
 	}
+	stack->a[0] = stack->b[0];
+	len = 0;
+	while (len != stack->b_count - 1)
+	{
+		stack->b[len] = stack->b[len + 1];
+		++len;
+	}
+	stack->b[stack->b_count - 1] = 0;
+	++stack->a_count;
+	--stack->b_count;
+}
+
+void	ft_push_b(t_stacks *stack)
+{
+	int		len;
+
+
+	len = stack->b_count;
+	while (stack->a_count > 0 && len > 0)
+	{
+		stack->b[len] = stack->b[len - 1];
+		--len;
+	}
+	stack->b[0] = stack->a[0];
+	len = 0;
+	while (len != stack->a_count - 1)
+	{
+		stack->a[len] = stack->a[len + 1];
+		++len;
+	}
+	stack->a[stack->a_count - 1] = 0;
+	++stack->b_count;
+	--stack->a_count;
 }
 
 void	ft_rotate(int *stack, int count)
@@ -88,17 +109,9 @@ void		ft_move(char *move, t_stacks *stack)
 	if (ft_strcmp(move, "sb") == 0 || ft_strcmp(move, "ss") == 0)
 		ft_swapthem(stack->b, stack->b_count);
 	if (stack->b_count > 0 && ft_strcmp(move, "pa") == 0)
-	{
-		ft_push(stack->b, stack->a, stack->b_count, stack->a_count);
-		++stack->a_count;
-		--stack->b_count;
-	}
+		ft_push_a(stack);
 	if (stack->a_count > 0 && ft_strcmp(move, "pb") == 0)
-	{
-		ft_push(stack->a, stack->b, stack->a_count, stack->b_count);
-		++stack->b_count;
-		--stack->a_count;
-	}
+		ft_push_b(stack);
 	if (ft_strcmp(move, "ra") == 0 || ft_strcmp(move, "rr") == 0)
 		ft_rotate(stack->a, stack->a_count);
 	if (ft_strcmp(move, "rb") == 0 || ft_strcmp(move, "rr") == 0)
@@ -107,15 +120,24 @@ void		ft_move(char *move, t_stacks *stack)
 		ft_revrotate(stack->a, stack->a_count);
 	if (ft_strcmp(move, "rrb") == 0 || ft_strcmp(move, "rrr") == 0)
 		ft_revrotate(stack->b, stack->b_count);
+	printf("move = %s\n", move);
+	ft_print_stacks(stack);
 }
 
 int		ft_move_and_save(char *move, t_stacks *stack, t_list **instructions)
 {
 	t_list *new_move;
+	char	*str;
+	int		len;
 
-	ft_move(move, stack);
-	if (!(new_move = ft_lstnew(&move, 1)))
+	len = ft_strlen(move);
+	//ft_printf("mve = %s\n", move);
+	if (!(str = (char *)malloc(sizeof(char) * len + 1)))
 		return (0);
-	ft_lstadd(instructions, new_move);
+	ft_strcpy(str, move);
+	ft_move(move, stack);
+	if (!(new_move = ft_lstnew(&*str, len)))
+		return (0);
+	ft_lstaddend(*instructions, new_move);
 	return (1);
 }

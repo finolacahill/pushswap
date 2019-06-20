@@ -31,7 +31,6 @@ int     ft_sort_three(t_stacks *stack, char name, t_list **instructions)
 {
     if (ft_sort_two(stack, instructions) == 0)
 		return (0);
-	ft_print_stacks(stack);
     if (name == 'a') 
     {
         if (stack->a[2] < stack->a[1] || stack->a[2] < stack->a[0])
@@ -92,7 +91,7 @@ int		ft_sort_four(t_stacks *stack, char name, t_list **instructions)
 
 int    ft_sort_five(t_stacks *stack, char name, t_list **instructions)
 {
-	ft_print_stacks(stack);
+
 	int pivot;
     int move;
 	int push;
@@ -120,9 +119,9 @@ int    ft_sort_five(t_stacks *stack, char name, t_list **instructions)
         if (name == 'b' && stack->b[0] < pivot)
             if (ft_move_and_save("rb", stack, instructions) == 0)
 				return (0);
-		ft_print_stacks(stack);
+
 	}
-	ft_print_stacks(stack);
+
     if (ft_sort_three(stack, name, instructions) == 0)
 		return (0);
 	if (ft_sort_three(stack, name, instructions) == 0)
@@ -175,7 +174,7 @@ int		ft_sort_ten(t_stacks *stack, char name, int len, t_list **instructions)
 		return (0);
 	if (ft_push_all_to_name(stack, name, instructions) == 0)
 		return (0);
-	ft_print_stacks(stack);
+
 	return (1);
 }
 

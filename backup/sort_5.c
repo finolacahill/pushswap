@@ -1,59 +1,65 @@
 #include "pushswap.h"
 
-void    ft_sort_two(t_stacks *stack)
+int    ft_sort_two(t_stacks *stack, t_list **instructions)
 {
-	printf("here 2\n");
+
     if (stack->a_count >= 2 && stack->a[0] > stack->a[1])
     {
         if (stack->b_count >= 2 && stack->b[0] < stack->b[1])
         {
-            ft_move("ss", stack);
-            ft_printf("ss");
+            if (ft_move_and_save("ss", stack, instructions) == 0)
+				return (0);
         }
         else
         {
-            ft_move("sa", stack);
-            ft_printf("sa");
+            if (ft_move_and_save("sa", stack, instructions) == 0)
+				return (0);
         }
     }
    else
     {
         if (stack->b_count >= 2 && stack->b[0] < stack->b[1])
         {
-            ft_move("sb", stack);
-            ft_printf("sb");
+            if (ft_move_and_save("sb", stack, instructions) == 0)
+				return (0);
         }
     }    
+	return (1);
 }
 
-void     ft_sort_three(t_stacks *stack, char name)
+int     ft_sort_three(t_stacks *stack, char name, t_list **instructions)
 {
-    ft_sort_two(stack);
+    if (ft_sort_two(stack, instructions) == 0)
+		return (0);
 	ft_print_stacks(stack);
     if (name == 'a') 
     {
         if (stack->a[2] < stack->a[1] || stack->a[2] < stack->a[0])
         {
-            ft_move_to_top(stack, name, 2);
-          	ft_sort_two(stack);
+            if (ft_move_to_top(stack, name, 2, instructions) == 0)
+				return (0);
+          	if (ft_sort_two(stack, instructions) == 0)
+			  return (0);
         }
     }
     if (name == 'b')
     {
         if (stack->b[2] > stack->b[1] || stack->b[2] > stack->b[0])
         {
-			ft_move_to_top(stack, name, 2);
-            ft_sort_two(stack);			
+			if (ft_move_to_top(stack, name, 2, instructions) == 0)
+				return (0);
+            if (ft_sort_two(stack, instructions) == 0)
+				return (0);	
         }
     }
+	return (1);
 }
 
-void	ft_sort_four(t_stacks *stack, char name)
+int		ft_sort_four(t_stacks *stack, char name, t_list **instructions)
 {
 	int pivot;
 	int move;
 
-	printf("here 4\n");
 	pivot = find_median(stack, name);
 	move = 0;
 	while (move++ < 4)
@@ -61,25 +67,31 @@ void	ft_sort_four(t_stacks *stack, char name)
 		if (name == 'a')
 		{
 			if (stack->a[0] < pivot)
-				ft_move("pb", stack);
+				if (ft_move_and_save("pb", stack, instructions) == 0)
+					return (0);
 			if (stack->a[0] >= pivot)
-				ft_move("ra", stack);
+				if (ft_move_and_save("ra", stack, instructions) == 0)
+					return (0);
 		}
 		if (name == 'b')
 		{
 			if (stack->b[0] >= pivot)
-				ft_move("pa", stack);
+				if (ft_move_and_save("pa", stack, instructions) == 0)
+					return (0);
 			if (stack->b[0] < pivot)
-				ft_move("rb", stack);
+				if (ft_move_and_save("rb", stack, instructions) == 0)
+					return (0);
 		}
 	}
-	ft_sort_two(stack);
-	ft_push_n_to_name(stack, 2, name);
+	if (ft_sort_two(stack, instructions) == 0)
+		return (0);
+	if (ft_push_n_to_name(stack, 2, name, instructions) == 0)
+		return (0);
+	return (1);
 }
 
-void    ft_sort_five(t_stacks *stack, char name)
+int    ft_sort_five(t_stacks *stack, char name, t_list **instructions)
 {
-	printf("here 5\n");
 	ft_print_stacks(stack);
 	int pivot;
     int move;
@@ -88,31 +100,40 @@ void    ft_sort_five(t_stacks *stack, char name)
 	push = 0;
 	move = 0;
 	pivot = find_median(stack, name);
+	printf("pivot = %d\n", pivot);
 	while (move++ < 5)
     {
 		if (name == 'a' && stack->a[0] < pivot)
 		{
 			++push;
-			ft_move("pb", stack);
+			if (ft_move_and_save("pb", stack, instructions) == 0)
+				return (0);
 		}
         if (name == 'a' && stack->a[0] >= pivot)
-            ft_move("ra", stack);
+            if (ft_move_and_save("ra", stack, instructions) == 0)
+				return (0);
 		if (name == 'b' && stack->b[0] >= pivot)
 		{
 			++push;
-			ft_move("pa", stack);
+			if (ft_move_and_save("pa", stack, instructions) == 0)
+				return (0);
 		}
         if (name == 'b' && stack->b[0] < pivot)
-            ft_move("rb", stack);
+            if (ft_move_and_save("rb", stack, instructions) == 0)
+				return (0);
 		ft_print_stacks(stack);
 	}
 	ft_print_stacks(stack);
-    ft_sort_three(stack, name);
-	ft_sort_two(stack);
-	ft_push_n_to_name(stack, push, name);
+    if (ft_sort_three(stack, name, instructions) == 0)
+		return (0);
+	if (ft_sort_three(stack, name, instructions) == 0)
+		return (0);
+	if (ft_push_n_to_name(stack, push, name, instructions) == 0)
+		return (0);
+	return (1);
 }
 
-void	ft_sort_ten(t_stacks *stack, char name, int len)
+int		ft_sort_ten(t_stacks *stack, char name, int len, t_list **instructions)
 {	
 	int pivot; 
 	int moves;
@@ -120,7 +141,6 @@ void	ft_sort_ten(t_stacks *stack, char name, int len)
 
 	
 	pivot = find_median(stack, name);
-	printf("pivt = %d\n", pivot);
 	moves = 0;
 
 	while (moves++ < len)
@@ -130,30 +150,37 @@ void	ft_sort_ten(t_stacks *stack, char name, int len)
 			if (stack->a[0] < pivot)
 			{
 				++push;
-            	ft_move("pb", stack);
+            	if (ft_move_and_save("pb", stack, instructions) == 0)
+					return (0);
 			}
         	if (stack->a[0] >= pivot)
-            	ft_move("ra", stack);
+            	if (ft_move_and_save("ra", stack, instructions) == 0)
+					return (0);
         }
 		if (name == 'b')
         {
 			if (stack->b[0] >= pivot)
 			{
-            	ft_move("pa", stack);
+            	if (ft_move_and_save("pa", stack, instructions) == 0)
+					return (0);
 				++push;
 			}
         	if(stack->b[0] < pivot)
-            	ft_move("rb", stack);
+            	if (ft_move_and_save("rb", stack, instructions) == 0)
+					return (0);
         }
 	}	
-	ft_sort_to_ten(stack, 'a');
-	ft_sort_to_ten(stack, 'b');
-	//printf("do we arrive here?\n");
-	ft_push_all_to_name(stack, name);
+	if (ft_sort_to_ten(stack, 'a', instructions) == 0)
+		return (0);
+	if (ft_sort_to_ten(stack, 'b', instructions) == 0)
+		return (0);
+	if (ft_push_all_to_name(stack, name, instructions) == 0)
+		return (0);
 	ft_print_stacks(stack);
+	return (1);
 }
 
-void	ft_sort_to_ten(t_stacks *stack, char name)
+int		ft_sort_to_ten(t_stacks *stack, char name, t_list **instructions)
 {
 	int len;
 
@@ -165,14 +192,20 @@ void	ft_sort_to_ten(t_stacks *stack, char name)
 	//	printf(" %c = %d\n", name, len);
 	//if ()
 	if (len == 2)
-		ft_sort_two(stack);
+		if (ft_sort_two(stack, instructions) == 0)
+			return (0);
 	if (len == 3)
-		ft_sort_three(stack, name);
+		if (ft_sort_three(stack, name, instructions) == 0)
+			return (0);
 	if  (len == 4)
-		ft_sort_four(stack, name);
+		if (ft_sort_four(stack, name, instructions) == 0)
+			return (0);
 	if (len == 5)
-		ft_sort_five(stack, name);
+		if (ft_sort_five(stack, name, instructions) == 0)
+			return (0);
 	if (len > 5 && len <= 10)
-		ft_sort_ten(stack, name, len);
+		if (ft_sort_ten(stack, name, len, instructions) == 0)
+			return (0);
+	return (1);
 }
 	

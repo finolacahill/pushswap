@@ -1,6 +1,6 @@
 #include "pushswap.h"
 
-void    ft_push_n_to_name(t_stacks *stack, int n, char name)
+int    ft_push_n_to_name(t_stacks *stack, int n, char name, t_list **instructions)
 {
     int i;
 
@@ -8,14 +8,17 @@ void    ft_push_n_to_name(t_stacks *stack, int n, char name)
     while (i < n)
     {
         if (name == 'a')
-            ft_move("pa", stack);
+            if (ft_move_and_save("pa", stack, instructions) == 0)
+                return (0);
         if (name == 'b')
-            ft_move("pb", stack);
+            if (ft_move_and_save("pb", stack, instructions) == 0)
+                return (0);
         ++i;
     }
+    return (1);
 }
 
-void    ft_push_all_to_name(t_stacks *stack, char name)
+int    ft_push_all_to_name(t_stacks *stack, char name, t_list **instructions)
 {
     int len;
     int n;
@@ -25,42 +28,50 @@ void    ft_push_all_to_name(t_stacks *stack, char name)
     {
         n = stack->b_count;
         while (len++ < n)
-            ft_move("pa", stack);
+            if (ft_move_and_save("pa", stack, instructions) == 0)
+                return (0);
     }
     if (name == 'b')
     {
         n = stack->a_count;
         while (len++ < n)
-            ft_move("pb", stack);
+            if (ft_move_and_save("pb", stack, instructions) == 0)
+                return (0);
     }
+    return (1);
 }
-static void ft_move_up(t_stacks *stack, char name, int steps)
+static int ft_move_up(t_stacks *stack, char name, int steps, t_list **instructions)
 {
-    printf("steps = %d\n", steps);
     while (steps != 0)
     {
         if (name == 'a')
-            ft_move("ra", stack);
+            if (ft_move_and_save("ra", stack, instructions) == 0)
+                return (0);
         ft_print_stacks(stack);
         if (name == 'b')
-            ft_move("rb", stack);
+            if (ft_move_and_save("rb", stack, instructions) == 0)
+                return (0);
         --steps;
      }
+     return (1);
 }
 
-static void ft_move_down(t_stacks *stack, char name, int steps)
+static int ft_move_down(t_stacks *stack, char name, int steps, t_list **instructions)
 {
     while (steps != 0)
     {
         if (name == 'a')
-            ft_move("rra", stack);
+            if (ft_move_and_save("rra", stack, instructions) == 0)
+                return (0);
         if (name == 'b')
-            ft_move("rrb", stack);
+           if (ft_move_and_save("rrb", stack, instructions) == 0)
+                return (0);
         --steps;
-        }
+    }
+    return (1);
 }
 
-void    ft_move_to_top(t_stacks *stack, char name, int index)
+int    ft_move_to_top(t_stacks *stack, char name, int index, t_list **instructions)
 {
     int     up;
     int     down;
@@ -79,9 +90,16 @@ void    ft_move_to_top(t_stacks *stack, char name, int index)
         while (index + down != len)
             ++down;
         if (up < down)
-            ft_move_up(stack, name, up);
+           {
+             if (ft_move_up(stack, name, up, instructions) == 0)
+                return (0);
+           }
         else
-            ft_move_down(stack, name, down);
+            {
+                if (ft_move_down(stack, name, down, instructions) == 0)
+                return (0);
+            }
     }
+    return (1);
         
 }

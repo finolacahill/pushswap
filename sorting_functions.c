@@ -40,14 +40,13 @@ int    ft_push_all_to_name(t_stacks *stack, char name, t_list **instructions)
     }
     return (1);
 }
-static int ft_move_up(t_stacks *stack, char name, int steps, t_list **instructions)
+int ft_move_up(t_stacks *stack, char name, int steps, t_list **instructions)
 {
     while (steps != 0)
     {
         if (name == 'a')
             if (ft_move_and_save("ra", stack, instructions) == 0)
                 return (0);
-        ft_print_stacks(stack);
         if (name == 'b')
             if (ft_move_and_save("rb", stack, instructions) == 0)
                 return (0);
@@ -56,7 +55,7 @@ static int ft_move_up(t_stacks *stack, char name, int steps, t_list **instructio
      return (1);
 }
 
-static int ft_move_down(t_stacks *stack, char name, int steps, t_list **instructions)
+int ft_move_down(t_stacks *stack, char name, int steps, t_list **instructions)
 {
     while (steps != 0)
     {
