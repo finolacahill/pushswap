@@ -23,8 +23,9 @@ int			main(int argc, char **argv)
 			return (ft_pushswap_error());
 		if ((there_are_duplicates(stack.a, stack.a_count)) == 1)
 			return (ft_pushswap_error());
-	if (ft_sort_to_ten(&stack, 'a', &instructions) == 0)
-		ft_pushswap_error();
+//	if (ft_sort_to_ten(&stack, 'a', &instructions) == 0)
+//		ft_pushswap_error();
+	ft_sort_to_b(&stack, &instructions);
 	ft_print_stacks(&stack); // mini visu to be deleted later
 	tracker = instructions;
 	ft_printf("\n  Moves\n---------\n");

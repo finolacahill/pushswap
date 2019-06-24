@@ -44,7 +44,8 @@ int				*ft_intarraycpy(int *source, int *destination, int n);
 
 //moves
 void			ft_swapthem(int *stack, int count);
-void			ft_push(int *a, int *b, int count_a, int count_b);
+void			ft_push_a(t_stacks *stack);
+void			ft_push_b(t_stacks *stack);
 void			ft_rotate(int *stack, int count);
 void			ft_revrotate(int *stack, int count);
 
