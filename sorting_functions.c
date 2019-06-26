@@ -1,5 +1,7 @@
 #include "pushswap.h"
 
+
+
 int    ft_push_n_to_name(t_stacks *stack, int n, char name, t_list **instructions)
 {
     int i;
@@ -17,7 +19,7 @@ int    ft_push_n_to_name(t_stacks *stack, int n, char name, t_list **instruction
     }
     return (1);
 }
-
+/*
 int    ft_push_all_to_name(t_stacks *stack, char name, t_list **instructions)
 {
     int len;
@@ -35,11 +37,12 @@ int    ft_push_all_to_name(t_stacks *stack, char name, t_list **instructions)
     {
         n = stack->a_count;
         while (len++ < n)
-            if (ft_move_and_save("pb", stack, instructions) == 0)
+            if (ft_move_and_save("pb", stack, instructions) == 
                 return (0);
     }
     return (1);
 }
+*/
 int ft_move_up(t_stacks *stack, char name, int steps, t_list **instructions)
 {
     while (steps != 0)

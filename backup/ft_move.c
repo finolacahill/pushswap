@@ -120,8 +120,8 @@ void		ft_move(char *move, t_stacks *stack)
 		ft_revrotate(stack->a, stack->a_count);
 	if (ft_strcmp(move, "rrb") == 0 || ft_strcmp(move, "rrr") == 0)
 		ft_revrotate(stack->b, stack->b_count);
-	printf("move = %s\n", move);
-	ft_print_stacks(stack);
+	//printf("move = %s\n", move);
+//	ft_print_stacks(stack);
 }
 
 int		ft_move_and_save(char *move, t_stacks *stack, t_list **instructions)

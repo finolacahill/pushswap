@@ -58,13 +58,15 @@ int				ft_sort_block(int push, char name, t_stacks *stack, t_list **instructions
 int				ft_sort_block_a(int push, t_stacks *stack, t_list **instructions);
 int				ft_sort_block_b(int push, t_stacks *stack, t_list **instructions);
 int				find_median(int *stack, int len);
-int     		ft_sort_three(t_stacks *stack, char name, t_list **moves);
+int     		ft_sort_three(t_stacks *stack, t_list **moves);
 int				ft_sort_two(t_stacks *stack, t_list **moves);
-int				ft_sort_four(t_stacks *stack, char name, t_list **moves);
-int    			ft_sort_five(t_stacks *stack, char name,  t_list **moves);
+int				ft_sort_four(t_stacks *stack, t_list **moves);
+int    			ft_sort_five(t_stacks *stack, t_list **moves);
 int				ft_sort_ten(t_stacks *stack, char name, int len,  t_list **moves);
 int				ft_sort_to_ten(t_stacks *stack, char name, t_list **moves);
 int				ft_push_n_to_name(t_stacks *stack, int n, char name, t_list **instructions);
 int	    		ft_push_all_to_name(t_stacks *stack, char name, t_list **instructions);
 int	    		ft_move_to_top(t_stacks *stack, char name, int index, t_list **instructions);
+void			ft_count_moves(t_list *instructions);
+void	ft_print_block(int *stack, int block);
 #endif

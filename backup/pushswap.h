@@ -52,8 +52,12 @@ void			ft_revrotate(int *stack, int count);
 //sorting
 void			ft_perf_quicksort(int *array,int first,int last);
 void			ft_sort_a(t_stacks *stack, int first, int last);
-void			ft_sort_b(t_stacks *stack, int first, int last);
-int				find_median(t_stacks *stack, char name);
+int     		ft_sort_to_a(int push, t_stacks *stack, t_list**instructions);
+int				ft_sort_to_b(t_stacks *stack, t_list **instructions);
+int				ft_sort_block(int push, char name, t_stacks *stack, t_list **instructions);
+int				ft_sort_block_a(int push, t_stacks *stack, t_list **instructions);
+int				ft_sort_block_b(int push, t_stacks *stack, t_list **instructions);
+int				find_median(int *stack, int len);
 int     		ft_sort_three(t_stacks *stack, char name, t_list **moves);
 int				ft_sort_two(t_stacks *stack, t_list **moves);
 int				ft_sort_four(t_stacks *stack, char name, t_list **moves);
