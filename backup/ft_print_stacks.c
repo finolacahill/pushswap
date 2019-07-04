@@ -92,5 +92,24 @@ void		ft_print_stacks(t_stacks *stack)
 	}
 	ft_print_border(len);
 	ft_print_labels(len);
-	ft_printf("\ncount_a = %d\ncount_b = %d\n", stack->a_count, stack->b_count);
+//	ft_printf("\ncount_a = %d\ncount_b = %d\n", stack->a_count, stack->b_count);
 }
+
+void	ft_print_block(int *stack, int block)
+{
+	int i;
+
+	i = 0;
+	ft_printf("-------------\n");
+	while (i != block)
+	{
+		ft_printf("%d\n", stack[i]);
+		++i;
+	}
+	ft_printf("-------------\n");
+	if (is_sorted(stack, block) == 0)
+		ft_printf("Not sorted.\n");
+	else
+		ft_printf("Is sorted\n");
+		
+	}

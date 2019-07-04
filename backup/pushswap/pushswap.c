@@ -26,14 +26,17 @@ int			main(int argc, char **argv)
 //	if (ft_sort_to_ten(&stack, 'a', &instructions) == 0)
 //		ft_pushswap_error();
 	ft_sort_to_b(&stack, &instructions);
-	ft_print_stacks(&stack); // mini visu to be deleted later
+//	ft_sort_four(&stack, &instructions); 
+//	ft_print_stacks(&stack); // mini visu to be deleted later
 	tracker = instructions;
 	ft_printf("\n  Moves\n---------\n");
-	while (tracker != NULL)
+/*	while (tracker != NULL)
 	{
 		ft_printf("%s\n", (char *)tracker->content);
 		tracker = tracker->next;
 		}
-	}
+	*/}
+	ft_print_stacks(&stack);
+	ft_count_moves(instructions);
 	return (0);
 }
