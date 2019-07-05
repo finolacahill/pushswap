@@ -71,6 +71,11 @@ int     ft_push_to_b(t_stacks *stack, t_list **instructions)
 
     block_a = stack->a_count;
     old_block_b = stack->b_count;
+    if (stack->a_count <= 4)
+     {   
+         ft_sort_to_five(stack, instructions);
+         return (1);
+     }
     if (ft_split_block_a(block_a, stack, instructions) == 0)
         return (0);
     if (stack->a_count > 0)
@@ -79,12 +84,9 @@ int     ft_push_to_b(t_stacks *stack, t_list **instructions)
         if (ft_push_to_b(stack, instructions) == 0)
             return (0);
     }
- //   printf("push to b calling push to a\n");
- //   printf("block = %d\n", stack->b_count - old_block_b);
-
     if (ft_push_to_a(stack->b_count - old_block_b, stack, instructions) == 0)
             return (0);
-   
+
         return (1);
 }
 

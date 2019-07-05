@@ -21,8 +21,11 @@ int	is_sorted(int *a, int count_a)
 {
 	while (--count_a > 0)
 	{
-		if (a[count_a] < a[count_a - 1])	
+		if (a[count_a] < a[count_a - 1])
+		{
+	//		printf("error at %d and %d\n", a[count_a], a[count_a - 1]);
 			return (0);
+		}
 	}
 	return (1);
 }

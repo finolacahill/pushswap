@@ -23,20 +23,36 @@ int			main(int argc, char **argv)
 			return (ft_pushswap_error());
 		if ((there_are_duplicates(stack.a, stack.a_count)) == 1)
 			return (ft_pushswap_error());
-//	if (ft_sort_to_ten(&stack, 'a', &instructions) == 0)
-//		ft_pushswap_error();
-	ft_sort_to_b(&stack, &instructions);
-//	ft_sort_four(&stack, &instructions); 
-//	ft_print_stacks(&stack); // mini visu to be deleted later
-	tracker = instructions;
-	ft_printf("\n  Moves\n---------\n");
+	/*if (stack.a_count <= 5)
+		ft_sort_to_five(&stack, &instructions);
+		//ft_push_to_b(&stack, &instructions);
+	else
+		ft_push_to_b(&stack, &instructions);
+	tracker = instructions;*/
+//	ft_printf("\n  Moves\n---------\n");
+//	while (tracker != NULL)
+//	{
+//		ft_printf("%s\n", (char *)tracker->content);
+//		tracker = tracker->next;
+		
+//	}
+//	ft_print_stacks(&stack);
+//	ft_count_moves(instructions);
+start = find_median(&stack.a[4], 3);
+printf("did it? %d\n", start);
+	ft_trim(instructions);
+//	ft_trim_rotations_b(instructions);
+//	printf("after trim = ");
+//	tracker = instructions;
+//	ft_printf("\n  Moves\n---------\n");
 /*	while (tracker != NULL)
 	{
 		ft_printf("%s\n", (char *)tracker->content);
 		tracker = tracker->next;
-		}
-	*/}
-	ft_print_stacks(&stack);
-	ft_count_moves(instructions);
+		
+	}*/
+//	ft_count_moves(instructions);
+
+	}
 	return (0);
 }

@@ -48,12 +48,14 @@ void			ft_push_a(t_stacks *stack);
 void			ft_push_b(t_stacks *stack);
 void			ft_rotate(int *stack, int count);
 void			ft_revrotate(int *stack, int count);
+void			ft_trim(t_list *instructions);
 
 //sorting
 void			ft_perf_quicksort(int *array,int first,int last);
-void			ft_sort_a(t_stacks *stack, int first, int last);
-int     		ft_sort_to_a(int push, t_stacks *stack, t_list**instructions);
-int				ft_sort_to_b(t_stacks *stack, t_list **instructions);
+int     		ft_push_to_a(int push, t_stacks *stack, t_list**instructions);
+int				ft_push_to_b(t_stacks *stack, t_list **instructions);
+int     		ft_split_block_a(int block_a, t_stacks *stack, t_list **instructions);
+int     		ft_split_block_b(int block_b, t_stacks *stack, t_list **instructions);
 int				ft_sort_block(int push, char name, t_stacks *stack, t_list **instructions);
 int				ft_sort_block_a(int push, t_stacks *stack, t_list **instructions);
 int				ft_sort_block_b(int push, t_stacks *stack, t_list **instructions);
@@ -63,10 +65,13 @@ int				ft_sort_two(t_stacks *stack, t_list **moves);
 int				ft_sort_four(t_stacks *stack, t_list **moves);
 int    			ft_sort_five(t_stacks *stack, t_list **moves);
 int				ft_sort_ten(t_stacks *stack, char name, int len,  t_list **moves);
-int				ft_sort_to_ten(t_stacks *stack, char name, t_list **moves);
+int				ft_sort_to_five(t_stacks *stack, t_list **instructions);
 int				ft_push_n_to_name(t_stacks *stack, int n, char name, t_list **instructions);
-int	    		ft_push_all_to_name(t_stacks *stack, char name, t_list **instructions);
-int	    		ft_move_to_top(t_stacks *stack, char name, int index, t_list **instructions);
+//int	    		ft_push_all_to_name(t_stacks *stack, char name, t_list **instructions);
+//int	    		ft_move_to_top(t_stacks *stack, char name, int index, t_list **instructions);
 void			ft_count_moves(t_list *instructions);
-void	ft_print_block(int *stack, int block);
+//void	ft_trim_rotations_b(t_list *instructions);
+void			ft_print_block(int *stack, int block);
+int 			ft_smart_rotate_a(int block, t_stacks *stack, t_list **instructions);
+int 			ft_smart_rotate_b(int block, t_stacks *stack, t_list **instructions);
 #endif

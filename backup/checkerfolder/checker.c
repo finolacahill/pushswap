@@ -16,7 +16,9 @@ int			main(int argc, char **argv)
 {
 	t_stacks	stack;
 	char		*instruction;
+	int i;
 
+	i = -1;
 	stack.b_count = 0;
 	if (argc > 1)
 	{
@@ -26,17 +28,22 @@ int			main(int argc, char **argv)
 			return (ft_pushswap_error());
 		if ((there_are_duplicates(stack.a, stack.a_count)) == 1)
 			return (ft_pushswap_error());
-		ft_print_stacks(&stack); // mini visu to be deleted later
-		while (get_next_line(0, &instruction) > 0)
+	//	ft_print_stacks(&stack); // mini visu to be deleted later
+		while (get_next_line(0, &instruction) == 1)
 		{
 			ft_move(instruction, &stack);
-		//	
+			++i;
+			printf("check = %s\n", instruction);
+			
 		}
-		ft_print_stacks(&stack); //mini visu to be deleted later
-		if (stack.b_count == 0 && (a_is_sorted(stack.a, stack.a_count)))
+		
+	//	ft_print_stacks(&stack); //mini visu to be deleted later
+		printf("%d moves made\n", i);
+		if (stack.b_count == 0 && (is_sorted(stack.a, stack.a_count) == 1))
 			return (ft_pushswap_ok());
 		else
 			return (ft_pushswap_ko());
 	}
+	
 	return (0);
 }
