@@ -6,7 +6,7 @@
 /*   By: fcahill <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/22 11:25:27 by fcahill           #+#    #+#             */
-/*   Updated: 2019/05/22 11:29:11 by fcahill          ###   ########.fr       */
+/*   Updated: 2019/07/10 12:05:49 by fcahill          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			main(int argc, char **argv)
 	char		*instruction;
 	int i;
 
-	i = -1;
+	i = 0;
 	stack.b_count = 0;
 	if (argc > 1)
 	{
@@ -33,12 +33,11 @@ int			main(int argc, char **argv)
 		{
 			ft_move(instruction, &stack);
 			++i;
-			printf("check = %s\n", instruction);
-			
+	//		printf("%d = %s\n", i, instruction);
 		}
 		
-		ft_print_stacks(&stack); //mini visu to be deleted later
-		printf("%d moves made\n", i);
+	//ft_print_stacks(&stack); //mini visu to be deleted later
+	//	printf("%d moves made\n", i);
 		if (stack.b_count == 0 && (is_sorted(stack.a, stack.a_count) == 1))
 			return (ft_pushswap_ok());
 		else

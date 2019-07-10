@@ -37,7 +37,7 @@ int			main(int argc, char **argv)
 			
 		}
 		
-	//	ft_print_stacks(&stack); //mini visu to be deleted later
+		ft_print_stacks(&stack); //mini visu to be deleted later
 		printf("%d moves made\n", i);
 		if (stack.b_count == 0 && (is_sorted(stack.a, stack.a_count) == 1))
 			return (ft_pushswap_ok());

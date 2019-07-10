@@ -12,97 +12,24 @@
 
 #include "pushswap.h"
 
-void	ft_swapthem(int *stack, int count)
+void	ft_count_moves(t_list *instructions)
 {
-	int		temp;
-
-	if (count > 1)
-	{
-		temp = stack[0]; 
-		stack[0] = stack[1];
-		stack[1] = temp;
-	}
-}
-void	ft_push_a(t_stacks *stack)
-{
-	int		len;
-
-	len = stack->a_count;
-	while (stack->b_count > 0 && len > 0)
-	{
-		stack->a[len] = stack->a[len - 1];
-		--len;
-	}
-	stack->a[0] = stack->b[0];
-	len = 0;
-	while (len != stack->b_count - 1)
-	{
-		stack->b[len] = stack->b[len + 1];
-		++len;
-	}
-	stack->b[stack->b_count - 1] = 0;
-	++stack->a_count;
-	--stack->b_count;
-}
-
-void	ft_push_b(t_stacks *stack)
-{
-	int		len;
-
-
-	len = stack->b_count;
-	while (stack->a_count > 0 && len > 0)
-	{
-		stack->b[len] = stack->b[len - 1];
-		--len;
-	}
-	stack->b[0] = stack->a[0];
-	len = 0;
-	while (len != stack->a_count - 1)
-	{
-		stack->a[len] = stack->a[len + 1];
-		++len;
-	}
-	stack->a[stack->a_count - 1] = 0;
-	++stack->b_count;
-	--stack->a_count;
-}
-
-void	ft_rotate(int *stack, int count)
-{
+	t_list	*t;
 	int		i;
-	int		temp;
 
 	i = 0;
-	temp = stack[0];
-	if (count > 1)
+	t = instructions;
+	if (!(instructions))
+		return ;
+	while (t->next != NULL)
 	{
-		while (i < count - 1)
-		{
-			stack[i] = stack[i + 1];
-			++i;
-		}
-		stack[i] = temp;
+		t = t->next;
+		++i;
 	}
+	ft_printf("%d moves made.\n", i);
 }
 
-void	ft_revrotate(int *stack, int count)
-{
-	int		temp;
-
-	if (count > 1)
-	{
-		temp = stack[count - 1];
-		while (count - 1 != 0)
-		{
-			stack[count - 1] = stack[count - 2];
-			--count;
-		}
-		stack[count - 1] = temp;
-	}
-}
-
-void		ft_move(char *move, t_stacks *stack)
+void	ft_move(char *move, t_stacks *stack)
 {
 	if (ft_strcmp(move, "sa") == 0 || ft_strcmp(move, "ss") == 0)
 		ft_swapthem(stack->a, stack->a_count);
@@ -126,7 +53,7 @@ void		ft_move(char *move, t_stacks *stack)
 
 int		ft_move_and_save(char *move, t_stacks *stack, t_list **instructions)
 {
-	t_list *new_move;
+	t_list	*new_move;
 	char	*str;
 	int		len;
 
@@ -139,5 +66,6 @@ int		ft_move_and_save(char *move, t_stacks *stack, t_list **instructions)
 	if (!(new_move = ft_lstnew(&*str, len)))
 		return (0);
 	ft_lstaddend(*instructions, new_move);
+	free(str);
 	return (1);
 }

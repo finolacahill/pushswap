@@ -1,129 +1,123 @@
 #include "pushswap.h"
 
-void ft_perf_quicksort(int *array,int first,int last)
+int ft_smart_rotate_a(int block, t_stacks *stack, t_list **instructions)
 {
-    int i;
-    int j; 
-    int pivot;
-
-    if (first < last)
-    {
-        pivot = first;
-        i = first;
-        j = last - 1;
-        while(i < j)
-        {
-            while(array[i] <= array[pivot] && i < last - 1)
-               i++;
-           while(array[j]>array[pivot])
-             j--;
-         if (i < j)
-             ft_swap(&array[i], &array[j]);
-        }
-        ft_swap(&array[pivot], &array[j]);
-        ft_perf_quicksort(array, first, j);
-        ft_perf_quicksort(array, j + 1, last);
-    }   
-}
-
-int     find_median(int *stack, int len)
-{
-    int    cpy[len];
-    int    med;
-
-    ft_intarraycpy(stack, cpy, len);
-    ft_perf_quicksort(cpy, 0, len);
-    med = cpy[len / 2];
-    printf("med = %d\n", med);
-    return (med);
-}
-
-int		ft_sort_block(int push, char name, t_stacks *stack, t_list **instructions)
-{
-	if (name == 'a')
-	{
-		if (ft_sort_block_a(push, stack, instructions) == 0)
-			return (0);
-	}
-	if (name == 'b')
-	{
-		if (ft_sort_block_b(push, stack, instructions) == 0)
-			return (0);
-	}
-	return (1);
-}
-
-int	ft_sort_block_b(int push, t_stacks *stack, t_list **instructions)
-{
-	int median; 
-	int	rev;
-	int	block;
-
-	median = find_median(stack->b, push);
-	rev = 0;
-	block = push;
-	while (push-- != 0)
-    {
-        if (stack->b[0] >= median)
-        {
-            if (ft_move_and_save("pa", stack, instructions) == 0)
-                return (0);
-        }
-        else
-        {
-            if (ft_move_and_save("rb", stack, instructions) == 0)
-                return (0);
-            rev++;            
-        }
-    }
-	while (rev != 0)
-    {
-        if (ft_move_and_save("rrb", stack, instructions) == 0)
-            return (0);
-        --rev;
-        ++push;
-    }
-	if (ft_sort_block_a(block, stack, instructions) == 0)
-		return (0);
-	if (push != 0)
-		ft_sort_block_b(push,stack,instructions);
-	return (1);
-}
-
-int		ft_sort_block_a(int push, t_stacks *stack, t_list **instructions)
-{
+	int block_a;
+	int block_b;
+	int rest;
 	int median;
-	int rev;
-	int block;
 
-	median = find_median(stack->a, push);
-	rev = 0;
-	block = 0;
+	rest = stack->a_count - block;
+	block_a = block;
+	block_b = 0;
+	median = find_median(&stack->a[rest], block);
+	if (block == stack->a_count)
+		return (1);
+	while (block-- != 0)
+	{
+		if (ft_move_and_save("rra", stack, instructions) == 0)
+			return (0);
+		if (stack->a[0] <= median)
+		{
+			if (ft_move_and_save("pb", stack, instructions) == 0)
+				return (0);
+			++block_b;
+			--block_a;
+		}
+	}
+	if (is_sorted(stack->a, block_a) == 0)
+	{
+		if (ft_sort_block_a(block_a,stack, instructions) == 0)
+			return(0);
+	}
+	if (ft_sort_block_b(block_b, stack, instructions) == 0)
+		return (0);
+	return (1);
+}
+
+int ft_smart_rotate_b(int block, t_stacks *stack, t_list **instructions)
+{
+	int block_a;
+	int block_b;
+	int rest;
+	int median;
+
+	rest = stack->b_count - block;
+	block_b = block;
+	block_a = 0;
+	median = find_median(&stack->b[rest], block);
+
+	if (block == stack->b_count)
+		return (1);
+	while (block-- != 0)
+	{
+		if (ft_move_and_save("rrb", stack, instructions) == 0)
+			return (0);
+		if (stack->b[0] >= median)
+		{
+			if (ft_move_and_save("pa", stack, instructions) == 0)
+				return (0);
+			++block_a;
+			--block_b;
+		}
+	}
+
+	if (block_a > 1)
+		ft_sort_block_a(block_a, stack, instructions);
+	if (block_b > 0)
+		ft_sort_block_b(block_b, stack, instructions);
+	
+	return (1);
+}
+
+int	ft_sort_block_b(int block_b, t_stacks *stack, t_list **instructions)
+{
+	int	block_a;
+	int	old_block_a;
+
+	block_a = 0;
+//	printf("block b of %d stack of %d\n", block_b, stack->b_count);
+	old_block_a = stack->a_count;
+	if (ft_split_block_b(block_b,stack, instructions) == 0)
+		return (0);
+	block_a = stack->a_count - old_block_a;
+	block_b = block_b - block_a;
+
+	if (block_a > 1)
+	{
+		if (ft_sort_block_a(block_a, stack, instructions) == 0)
+			return (0);
+	}
+	if (ft_smart_rotate_b(block_b, stack, instructions) == 0)
+		return (0);
+	//	ft_sort_block_b(block_b, stack, instructions);
+	// ft_sort_block_a(block_a, stack, instructions);
+	return (1);
+}
+
+int		ft_sort_block_a(int block_a, t_stacks *stack, t_list **instructions)
+{
+	int new_block_a;
+	int new_block_b;
+	int old_block_b;
+
+	new_block_a = 0;
+	new_block_b = 0;
+	old_block_b = stack->b_count;
+	if (block_a <= 2)
+		ft_sort_to_five(stack, instructions);
+//	printf("block a of %d\n", block_a);
 	if (is_sorted(stack->a, stack->a_count) == 0)
 	{
-		if (stack->a[0] <= median)
-		{	
-			if (ft_move_and_save("pb", stack, instructions) == 0)
-			return (0);
-			++block;
-		}
-		else
-		{
-			{
-				if (ft_move_and_save("ra",stack, instructions) == 0)
-					return (0);
-				++rev; 
-			}
-		}
-		while (rev != 0)
-    	{
-        	if (ft_move_and_save("rra", stack, instructions) == 0)
-            	return (0);
-        	--rev;
-       		++push;
-    	}
-	if (ft_sort_block_b(push, stack, instructions) == 0)
-		return (0);
+		ft_split_block_a(block_a, stack, instructions);
+		new_block_b = stack->b_count - old_block_b;
+		new_block_a = block_a - new_block_b;
 	}
+	ft_smart_rotate_a(new_block_a, stack, instructions);
+//	if (is_sorted(stack->a, new_block_a) == 0)
+//	{
+//		ft_sort_block_a(new_block_a, stack, instructions);
+//	}
+	ft_sort_block_b(new_block_b, stack, instructions);
 	return (1);
 }

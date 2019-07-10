@@ -21,9 +21,11 @@ void		ft_trim(t_list *instructions)
 {
 	t_list *t;
 	t_list *t2;
+	int		flag;
 
 	t = instructions;
 	t2 = instructions->next;
+	flag = 0;
 	while (t2 != NULL && t2->next != NULL)
 	{
 		if (((ft_strcmp(t->next->content, "ra") == 0) && 
@@ -43,14 +45,21 @@ void		ft_trim(t_list *instructions)
 			free(t2->next);
 			free(t2);
 			t2 = t->next;
+			flag = 1;
 		}
 			t = t->next;
 			if (t2 != NULL)
 				t2 = t2->next;
+			if (flag == 1)
+			{
+				t = instructions;
+				t2 = instructions->next;
+				flag = 0;
+			}
 	}
 
 }
-
+/*
 void	ft_trim_rotations_b(t_list *instructions)
 {
 	t_list *t;
@@ -87,7 +96,7 @@ void	ft_trim_rotations_b(t_list *instructions)
 		if (t2 != NULL)
 			t2 = t2->next;
 	}
-}
+}*/
 
 	
 
