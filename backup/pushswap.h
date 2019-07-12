@@ -28,8 +28,9 @@ typedef struct	s_stacks
 	int			b_count;
 }				t_stacks;
 //checker functions
-void			ft_move(char *move, t_stacks *stacks);
 int				ft_move_and_save(char *move, t_stacks *stacks, t_list **instructions);
+void	ft_move(char *move, t_stacks *stack);
+
 void			ft_print_stacks(t_stacks *stack);
 int				ft_pushswap_error(void);
 int				ft_pushswap_ko(void);
@@ -63,9 +64,7 @@ int				find_median(int *stack, int len);
 int     		ft_sort_three(t_stacks *stack, t_list **moves);
 int				ft_sort_two(t_stacks *stack, t_list **moves);
 int				ft_sort_four(t_stacks *stack, t_list **moves);
-int    			ft_sort_five(t_stacks *stack, t_list **moves);
-int				ft_sort_ten(t_stacks *stack, char name, int len,  t_list **moves);
-int				ft_sort_to_five(t_stacks *stack, t_list **instructions);
+int				ft_sort_to_four(t_stacks *stack, t_list **instructions, int block);
 int				ft_push_n_to_name(t_stacks *stack, int n, char name, t_list **instructions);
 //int	    		ft_push_all_to_name(t_stacks *stack, char name, t_list **instructions);
 //int	    		ft_move_to_top(t_stacks *stack, char name, int index, t_list **instructions);
@@ -74,4 +73,11 @@ void			ft_count_moves(t_list *instructions);
 void			ft_print_block(int *stack, int block);
 int 			ft_smart_rotate_a(int block, t_stacks *stack, t_list **instructions);
 int 			ft_smart_rotate_b(int block, t_stacks *stack, t_list **instructions);
+void			ft_print_instructions(t_list *instructions);
+int     ft_sort_three_a(t_stacks *stack, t_list **instructions);
+int     is_smallest(int *stack, int block, int placement);
+int     is_largest(int *stack, int block, int placement);
+int     ft_sort_three_b(t_stacks *stack, t_list **instructions);
+void		ft_trim_rotations(t_list *instructions);
+void		ft_trim_revrotations(t_list *instructions);
 #endif
