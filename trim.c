@@ -6,7 +6,7 @@
 /*   By: fcahill <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 22:39:47 by fcahill           #+#    #+#             */
-/*   Updated: 2019/07/10 22:39:53 by fcahill          ###   ########.fr       */
+/*   Updated: 2019/07/11 11:54:54 by fcahill          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,26 @@
 
 static int	read_repeats(t_list *t, t_list *t2)
 {
-	if (((ft_strcmp(t->next->content, "ra") == 0) &&
-		(ft_strcmp(t2->next->content, "rra") == 0)) ||
-		(ft_strcmp(t->next->content, "rra") == 0
-		&& ft_strcmp(t2->next->content, "ra") == 0) ||
-		(ft_strcmp(t->next->content, "rb") == 0
-		&& ft_strcmp(t2->next->content, "rrb") == 0) ||
-		(ft_strcmp(t->next->content, "rrb") == 0
-		&& ft_strcmp(t2->next->content, "rb") == 0) ||
-		(ft_strcmp(t->next->content, "pa") == 0
-		&& ft_strcmp(t2->next->content, "pb") == 0) ||
-		(ft_strcmp(t->next->content, "pb") == 0
-		&& ft_strcmp(t2->next->content, "pa") == 0))
+	if (((ft_strncmp(t->next->content, "ra", 2) == 0) &&
+		(ft_strncmp(t2->next->content, "rra", 3) == 0)) ||
+		(ft_strncmp(t->next->content, "rra", 3) == 0
+		&& ft_strncmp(t2->next->content, "ra", 2) == 0) ||
+		(ft_strncmp(t->next->content, "rb", 2) == 0
+		&& ft_strncmp(t2->next->content, "rrb", 3) == 0) ||
+		(ft_strncmp(t->next->content, "rrb", 3) == 0
+		&& ft_strncmp(t2->next->content, "rb", 2) == 0) ||
+		(ft_strncmp(t->next->content, "pa", 2) == 0
+		&& ft_strncmp(t2->next->content, "pb", 2) == 0) ||
+		(ft_strncmp(t->next->content, "pb", 2) == 0
+		&& ft_strncmp(t2->next->content, "pa", 2) == 0))
 		return (1);
 	return (0);
 }
 
-void		ft_trim(t_list *instructions)
+static void	trim_doubles(t_list *instructions)
 {
 	t_list	*t;
 	t_list	*t2;
-	int		flag;
 
 	t = instructions;
 	t2 = instructions->next;
@@ -58,45 +57,48 @@ void		ft_trim(t_list *instructions)
 				t2 = t2->next;
 		}
 	}
-	ft_trim_rotations(instructions);
 }
 
 static int	read_rotations(t_list *t, t_list *t2)
 {
-	char a[3] = "rr\0";
-	char b[4] = "rrr\0";
+	char	*a;
+	int		len;
 
-	if (((ft_strcmp(t->content, "ra") == 0) &&
-		(ft_strcmp(t->next->content, "rb") == 0)) ||
-		((ft_strcmp(t->content, "rb") == 0) &&
-		(ft_strcmp(t->next->content, "ra") == 0)))
+	len = 0;
+	if (((ft_strncmp(t->content, "ra", 2) == 0) &&
+		(ft_strncmp(t->next->content, "rb", 2) == 0)) ||
+		((ft_strncmp(t->content, "rb", 2) == 0) &&
+		(ft_strncmp(t->next->content, "ra", 2) == 0)))
+		len = 3;
+	if (((ft_strncmp(t->content, "rra", 3) == 0)
+	&& (ft_strncmp(t->next->content, "rrb", 3) == 0)) ||
+		((ft_strncmp(t->content, "rrb", 3) == 0) &&
+		(ft_strncmp(t->next->content, "rra", 3) == 0)))
+		len = 4;
+	if (len > 0)
 	{
 		free(t->content);
-		t->content = a;
-		return (1);
+		if (!(t->content = (char *)malloc(sizeof(char) * len)))
+			return (-1);
+		if (len == 3)
+			ft_strcpy(t->content, "rr\0");
+		if (len == 4)
+			ft_strcpy(t->content, "rrr\0");
 	}
-	if (((ft_strcmp(t->content, "rra") == 0)
-	&& (ft_strcmp(t->next->content, "rrb") == 0)) ||
-		((ft_strcmp(t->content, "rrb") == 0) &&
-		(ft_strcmp(t->next->content, "rra") == 0)))
-	{
-		free(t->content);
-		t->content = b;
-		return (2);
-	}
-	return (0);
+	return (len);
 }
 
-void		ft_trim_rotations(t_list *instructions)
+static int	ft_trim_rotations(t_list *t, t_list *t2, t_list *instructions)
 {
-	t_list *t;
-	t_list *t2;
+	int		flag;
 
-	t = instructions;
-	t2 = instructions->next;
+	flag = 0;
 	while (t2 != NULL && t2->next != NULL)
 	{
-		if (read_rotations(t, t2) > 0)
+		flag = read_rotations(t, t2);
+		if (flag == -1)
+			return (0);
+		if (flag > 0)
 		{
 			t->next = t2->next;
 			free(t2->content);
@@ -111,4 +113,18 @@ void		ft_trim_rotations(t_list *instructions)
 				t2 = t2->next;
 		}
 	}
+	return (1);
+}
+
+int			ft_trim(t_list *instructions)
+{
+	t_list	*t;
+	t_list	*t2;
+
+	t = instructions;
+	t2 = instructions->next;
+	trim_doubles(instructions);
+	if (ft_trim_rotations(t, t2, instructions) == 0)
+		return (0);
+	return (1);
 }

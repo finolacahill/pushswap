@@ -21,9 +21,18 @@ static int	arg_is_number(char *arg)
 	{
 		if (arg[i] == '+' || arg[i] == '-')
 			++i;
-		if (ft_isdigit(arg[i]) == 0 && arg[i] != ' ')
+			
+		if (ft_isdigit(arg[i]) == 0 && ft_isspace(arg[i]) == 0)
 			return (0);
-		++i;
+		if (ft_isdigit(arg[i]) == 1)
+		{
+			while (ft_isdigit(arg[i]) == 1)
+				++i;
+			if (arg[i] != '\0' && ft_isspace(arg[i]) == 0)
+				return (0);
+		}
+		if (arg[i] != '\0')
+			++i;
 	}
 	return (1);
 }

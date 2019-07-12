@@ -24,7 +24,7 @@ int		ft_split_block_a(int block_a, t_stacks *stack, t_list **instructions)
 	{
 		if (stack->a[0] <= median)
 		{
-			if (ft_move_and_save("pb", stack, instructions) == 0)
+			if (ft_move_and_save("pb\0", stack, instructions) == 0)
 				return (0);
 		}
 		else

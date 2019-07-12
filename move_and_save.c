@@ -63,9 +63,32 @@ int		ft_move_and_save(char *move, t_stacks *stack, t_list **instructions)
 		return (0);
 	ft_strcpy(str, move);
 	ft_move(move, stack);
-	if (!(new_move = ft_lstnew(&*str, len)))
+	if (!(new_move = ft_lstnew(&*str, len + 1)))
 		return (0);
 	ft_lstaddend(*instructions, new_move);
 	free(str);
 	return (1);
 }
+
+int		ft_check_instructions(char *move)
+{
+
+	if (move[0] == 'r' && move[1] == 'r')
+	{
+		if (ft_strcmp(move, "rra") == 0 ||
+			ft_strcmp(move, "rrb") == 0 ||
+			ft_strcmp(move, "rrr") == 0)
+			return (1);
+	}
+	if ((ft_strcmp(move, "sa") == 0) ||
+		ft_strcmp(move, "sb") == 0 ||
+		ft_strcmp(move, "ss") == 0 ||
+		ft_strcmp(move, "ra") == 0 ||
+		ft_strcmp(move, "rb") == 0 ||
+		ft_strcmp(move, "rr") == 0 ||
+		ft_strcmp(move, "pa") == 0 ||
+		ft_strcmp(move, "pb") == 0)
+			return (1);
+
+	return (0);
+	}
