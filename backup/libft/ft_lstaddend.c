@@ -16,8 +16,7 @@ void	ft_lstaddend(t_list *alst, t_list *new)
 {
 	if ((!alst) || (!new))
 		return ;
-    while (alst->next != NULL)
-        alst = alst->next;
-        alst->next = new;
-
+	while (alst->next != NULL)
+		alst = alst->next;
+	alst->next = new;
 }

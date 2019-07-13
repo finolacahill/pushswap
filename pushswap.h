@@ -80,4 +80,7 @@ int     is_largest(int *stack, int block, int placement);
 int     ft_sort_three_b(t_stacks *stack, t_list **instructions);
 int		ft_check_instructions(char *move);
 void 	free_stacks(t_stacks stack);
+int		is_split(char name, int block, int median, t_stacks *stack);
+int		get_split_med(int block, int rev, int count, int *stack);
+int		partial_rotate(int rev, int block, t_stacks *stack, t_list **instructions);
 #endif

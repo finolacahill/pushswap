@@ -42,7 +42,9 @@ static int	instruction_error(char *instruction)
 static int	ft_get_instructions(char *instruction, t_stacks stack)
 {
 	char	c;
+	int 	i;
 
+	i = 0;
 	while ((c = ft_getchar(0)) > 0)
 	{
 		if (c != '\n')
@@ -56,11 +58,13 @@ static int	ft_get_instructions(char *instruction, t_stacks stack)
 		//	ft_print_stacks(&stack);
 			free(instruction);
 			instruction = ft_strnew(1);
+			++i;
 		}
 	}
 	if (ft_strncmp(instruction, "\0\0", 2) != 0)
 		return (instruction_error(instruction));
 	free(instruction);
+	//printf("%d moves made\n", i);
 	return (1);
 }
 
@@ -83,6 +87,7 @@ int			main(int argc, char **argv)
 		instruction = ft_strnew(1);
 		if (ft_get_instructions(instruction, stack) == 0)
 			return (ft_pushswap_error(&stack));
+	//	ft_print_stacks(&stack);
 		if (stack.b_count == 0 && (is_sorted(stack.a, stack.a_count) == 1))
 			return (ft_pushswap_ok(&stack));
 		else

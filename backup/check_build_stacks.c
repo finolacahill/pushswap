@@ -30,16 +30,9 @@ int		ft_buildstacks(t_stacks *stack, char **args)
 	if (!(stack->a = (int *)malloc(sizeof(int) * stack->a_count)))
 		return (0);
 	if (!(stack->b = (int *)malloc(sizeof(int) * stack->a_count)))
-	{
-		free(stack->a);
 		return (0);
-	}
 	if (!(stack->c = (int *)malloc(sizeof(int) * stack->a_count)))
-	{	
-		free(stack->a);
-		free(stack->b);
 		return (0);
-	}
 	if (!(ft_create_stacks(stack->a, stack->b, args)))
 		return (0);
 	stack->c = ft_intarraycpy(stack->a, stack->c, stack->a_count);

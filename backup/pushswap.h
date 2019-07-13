@@ -32,9 +32,9 @@ int				ft_move_and_save(char *move, t_stacks *stacks, t_list **instructions);
 void	ft_move(char *move, t_stacks *stack);
 
 void			ft_print_stacks(t_stacks *stack);
-int				ft_pushswap_error(void);
-int				ft_pushswap_ko(void);
-int				ft_pushswap_ok(void);
+int				ft_pushswap_error(t_stacks *stack);
+int				ft_pushswap_ko(t_stacks *stack);
+int				ft_pushswap_ok(t_stacks *stack);
 int				ft_create_stacks(int *a, int *b, char **arg);
 int				ft_is_single_arg(char *arg);
 int				ft_count_numbers(char **arg, int limit);
@@ -49,7 +49,7 @@ void			ft_push_a(t_stacks *stack);
 void			ft_push_b(t_stacks *stack);
 void			ft_rotate(int *stack, int count);
 void			ft_revrotate(int *stack, int count);
-void			ft_trim(t_list *instructions);
+int			ft_trim(t_list *instructions);
 
 //sorting
 void			ft_perf_quicksort(int *array,int first,int last);
@@ -73,11 +73,11 @@ void			ft_count_moves(t_list *instructions);
 void			ft_print_block(int *stack, int block);
 int 			ft_smart_rotate_a(int block, t_stacks *stack, t_list **instructions);
 int 			ft_smart_rotate_b(int block, t_stacks *stack, t_list **instructions);
-void			ft_print_instructions(t_list *instructions);
+//void			ft_print_instructions(t_list *instructions);
 int     ft_sort_three_a(t_stacks *stack, t_list **instructions);
 int     is_smallest(int *stack, int block, int placement);
 int     is_largest(int *stack, int block, int placement);
 int     ft_sort_three_b(t_stacks *stack, t_list **instructions);
-void		ft_trim_rotations(t_list *instructions);
-void		ft_trim_revrotations(t_list *instructions);
+int		ft_check_instructions(char *move);
+void 	free_stacks(t_stacks stack);
 #endif

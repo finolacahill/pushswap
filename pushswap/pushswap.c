@@ -53,6 +53,7 @@ int				main(int argc, char **argv)
 			return (ft_pushswap_error(&stack));
 		if ((there_are_duplicates(stack.a, stack.a_count)) == 1)
 			return (ft_pushswap_error(&stack));
+//	printf("answer = %d\n", is_split('a', 5, 2, &stack));
 	if (is_sorted(stack.a, stack.a_count) == 0)
 	{
 	if (stack.a_count <= 5)
@@ -62,6 +63,9 @@ int				main(int argc, char **argv)
 	}
 	ft_trim(instructions);
 	ft_print_instructions(instructions);
+
+//	ft_print_stacks(&stack);
+	
 	}
 	ft_free_all(instructions, &stack);
 	return (0);
