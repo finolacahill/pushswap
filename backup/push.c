@@ -12,7 +12,7 @@
 
 #include "pushswap.h"
 
-int		ft_split_block_a(int block_a, t_stacks *stack, t_list **instructions)
+int		ft_first_split(int block_a, t_stacks *stack, t_list **instructions)
 {
 	int	median;
 	int	medianb;
@@ -20,6 +20,35 @@ int		ft_split_block_a(int block_a, t_stacks *stack, t_list **instructions)
 
 	block_b = 0;
 	median = find_median(stack->a, block_a);
+	while (--block_a >= 0)
+	{
+		if (stack->a[0] <= median)
+		{
+			if (ft_move_and_save("pb\0", stack, instructions) == 0)
+				return (0);
+		}
+		else
+		{
+			if (ft_move_and_save("ra", stack, instructions) == 0)
+				return (0);
+		}
+		if (is_split('a', block_a + 1, median, stack) == 1)
+			return (1);
+	}
+	return (1);
+}
+
+int		ft_split_block_a(int block_a, t_stacks *stack, t_list **instructions)
+{
+	int	median;
+	int	flag;
+	int	block_b;
+
+	block_b = 0;
+	flag = 0;
+	median = find_median(stack->a, block_a);
+	if (block_a == stack->a_count)
+		flag = 1;
 	while (block_a-- != 0)
 	{
 		if (stack->a[0] <= median)
@@ -32,6 +61,8 @@ int		ft_split_block_a(int block_a, t_stacks *stack, t_list **instructions)
 			if (ft_move_and_save("ra", stack, instructions) == 0)
 				return (0);
 		}
+		if (flag == 1 && is_split('a', block_a + 1, median, stack) == 1)
+			return (1);
 	}
 	return (1);
 }
@@ -40,8 +71,12 @@ int		ft_split_block_b(int block_b, t_stacks *stack, t_list **instructions)
 {
 	int	median;
 	int	block_a;
+	int	flag;
 
+	flag = 0;
 	block_a = 0;
+	if (block_b == stack->b_count)
+		flag = 1;
 	median = find_median(stack->b, block_b);
 	while (block_b-- != 0)
 	{
@@ -55,6 +90,8 @@ int		ft_split_block_b(int block_b, t_stacks *stack, t_list **instructions)
 			if (ft_move_and_save("rb", stack, instructions) == 0)
 				return (0);
 		}
+		if (flag == 1 && is_split('b', block_b + 1, median, stack) == 1)
+			return (1);
 	}
 	return (1);
 }
@@ -64,11 +101,9 @@ int		ft_push_to_a(int block_b, t_stacks *stack, t_list **instructions)
 	int	old_a;
 
 	old_a = stack->a_count;
-//    printf("push to a called sort block b here = %d\n", block_b);                                        
 	ft_sort_block_b(block_b, stack, instructions);
 	if (stack->a_count != old_a + block_b)
 	{
-//     printf("push to a called push to a block b = %d\n", block_b);
 		block_b = block_b - (stack->a_count - old_a);
 		if (ft_push_to_a(block_b, stack, instructions) == 0)
 			return (0);
@@ -90,7 +125,7 @@ int		ft_push_to_b(t_stacks *stack, t_list **instructions)
 			return (0);
 		return (1);
 	}
-	if (ft_split_block_a(block_a, stack, instructions) == 0)
+	if (ft_first_split(block_a, stack, instructions) == 0)
 		return (0);
 	if (stack->a_count > 0)
 	{

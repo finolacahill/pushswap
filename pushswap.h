@@ -82,5 +82,8 @@ int		ft_check_instructions(char *move);
 void 	free_stacks(t_stacks stack);
 int		is_split(char name, int block, int median, t_stacks *stack);
 int		get_split_med(int block, int rev, int count, int *stack);
+char	*ft_addchar(char *str, char c);
+int	instruction_error(char *instruction);
+int	ft_get_instructions(char *instruction, t_stacks stack);
 int		partial_rotate(int rev, int block, t_stacks *stack, t_list **instructions);
 #endif

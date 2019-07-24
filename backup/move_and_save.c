@@ -47,8 +47,6 @@ void	ft_move(char *move, t_stacks *stack)
 		ft_revrotate(stack->a, stack->a_count);
 	if (ft_strcmp(move, "rrb") == 0 || ft_strcmp(move, "rrr") == 0)
 		ft_revrotate(stack->b, stack->b_count);
-//	printf("\t\tmove = %s\n", move);
-//	ft_print_stacks(stack);
 }
 
 int		ft_move_and_save(char *move, t_stacks *stack, t_list **instructions)
@@ -58,7 +56,6 @@ int		ft_move_and_save(char *move, t_stacks *stack, t_list **instructions)
 	int		len;
 
 	len = ft_strlen(move);
-	//ft_printf("\t\t\tmve = %s\n", move);
 	if (!(str = (char *)malloc(sizeof(char) * len + 1)))
 		return (0);
 	ft_strcpy(str, move);
@@ -72,7 +69,6 @@ int		ft_move_and_save(char *move, t_stacks *stack, t_list **instructions)
 
 int		ft_check_instructions(char *move)
 {
-
 	if (move[0] == 'r' && move[1] == 'r')
 	{
 		if (ft_strcmp(move, "rra") == 0 ||
@@ -88,7 +84,6 @@ int		ft_check_instructions(char *move)
 		ft_strcmp(move, "rr") == 0 ||
 		ft_strcmp(move, "pa") == 0 ||
 		ft_strcmp(move, "pb") == 0)
-			return (1);
-
+		return (1);
 	return (0);
-	}
+}

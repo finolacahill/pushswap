@@ -12,6 +12,32 @@
 
 #include "pushswap.h"
 
+int		is_split(char name, int block, int median, t_stacks *stack)
+{
+	int i;
+
+	i = 0;
+	if (name == 'a')
+	{
+		while (i < block)
+		{
+			if (stack->a[i] <= median)
+				return (0);
+			++i;
+		}
+	}
+	if (name == 'b')
+	{
+		while (i < block)
+		{
+			if (stack->b[i] >= median)
+				return (0);
+			++i;
+		}
+	}
+	return (1);
+}
+
 int		ft_smart_rotate_a(int block, t_stacks *st, t_list **instruc)
 {
 	int a;
