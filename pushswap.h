@@ -13,6 +13,7 @@
 #ifndef PUSHSWAP_H
 # define PUSHSWAP_H
 # include <unistd.h>
+# include <SDL2/SDL.h>
 # include <stdlib.h>
 # include <string.h>
 # include "libft/ft_printf.h"
@@ -86,4 +87,10 @@ char	*ft_addchar(char *str, char c);
 int	instruction_error(char *instruction);
 int	ft_get_instructions(char *instruction, t_stacks stack);
 int		partial_rotate(int rev, int block, t_stacks *stack, t_list **instructions);
+
+//visu
+int quit_window(int i, SDL_Renderer *renderer, SDL_Window *window);
+int		draw_stacks(t_stacks stack, SDL_Renderer *renderer);
+void stack_normalizer(t_stacks *stack);
+int init_window(SDL_Renderer **renderer, SDL_Window *window);
 #endif

@@ -12,7 +12,7 @@
 
 #include "../pushswap.h"
 
-static char	*ft_addchar(char *str, char c)
+char	*ft_addchar(char *str, char c)
 {
 	char	*newstr;
 	int		len;
@@ -33,13 +33,13 @@ static char	*ft_addchar(char *str, char c)
 	return (newstr);
 }
 
-static int	instruction_error(char *instruction)
+int	instruction_error(char *instruction)
 {
 	free(instruction);
 	return (0);
 }
 
-static int	ft_get_instructions(char *instruction, t_stacks stack)
+int	ft_get_instructions(char *instruction, t_stacks stack)
 {
 	char	c;
 	int 	i;
@@ -67,7 +67,7 @@ static int	ft_get_instructions(char *instruction, t_stacks stack)
 	//printf("%d moves made\n", i);
 	return (1);
 }
-
+/*
 int			main(int argc, char **argv)
 {
 	t_stacks	stack;
@@ -95,3 +95,4 @@ int			main(int argc, char **argv)
 	}
 	return (0);
 }
+*/
