@@ -65,16 +65,19 @@ static int	read_rotations(t_list *t, t_list *t2)
 	int		len;
 
 	len = 0;
-	if (((ft_strncmp(t->content, "ra", 2) == 0) &&
-		(ft_strncmp(t->next->content, "rb", 2) == 0)) ||
-		((ft_strncmp(t->content, "rb", 2) == 0) &&
-		(ft_strncmp(t->next->content, "ra", 2) == 0)))
+	if (t->content_size != 0 && t->next->content_size != 0)
+	{
+	if (((ft_strcmp(t->content, "ra") == 0) &&
+		(ft_strcmp(t->next->content, "rb") == 0)) ||
+		((ft_strcmp(t->content, "rb") == 0) &&
+		(ft_strcmp(t->next->content, "ra") == 0)))
 		len = 3;
 	if (((ft_strncmp(t->content, "rra", 3) == 0)
 	&& (ft_strncmp(t->next->content, "rrb", 3) == 0)) ||
 		((ft_strncmp(t->content, "rrb", 3) == 0) &&
 		(ft_strncmp(t->next->content, "rra", 3) == 0)))
 		len = 4;
+	}
 	if (len > 0)
 	{
 		free(t->content);
@@ -124,6 +127,8 @@ int			ft_trim(t_list *instructions)
 	t = instructions;
 	t2 = instructions->next;
 	trim_doubles(instructions);
+	t = instructions;
+	t2 = instructions->next;
 	if (ft_trim_rotations(t, t2, instructions) == 0)
 		return (0);
 	return (1);
