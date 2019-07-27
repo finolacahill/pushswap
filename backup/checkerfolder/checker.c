@@ -43,8 +43,12 @@ int	ft_get_instructions(char *instruction, t_stacks stack)
 {
 	char	c;
 	int 	i;
+    SDL_Window *window = NULL;
+    SDL_Renderer *renderer = NULL;
 
 	i = 0;
+	stack_normalizer(&stack);
+	init_window(&renderer, window);
 	while ((c = ft_getchar(0)) > 0)
 	{
 		if (c != '\n')
@@ -55,6 +59,7 @@ int	ft_get_instructions(char *instruction, t_stacks stack)
 			if (ft_check_instructions(instruction) == 0)
 				return (instruction_error(instruction));
 			ft_move(instruction, &stack);
+			draw_stacks(stack, renderer);
 		//	ft_print_stacks(&stack);
 			free(instruction);
 			instruction = ft_strnew(1);
@@ -64,10 +69,11 @@ int	ft_get_instructions(char *instruction, t_stacks stack)
 	if (ft_strncmp(instruction, "\0\0", 2) != 0)
 		return (instruction_error(instruction));
 	free(instruction);
+	quit_window(0, renderer, window);
 	//printf("%d moves made\n", i);
 	return (1);
 }
-/*
+
 int			main(int argc, char **argv)
 {
 	t_stacks	stack;
@@ -95,4 +101,3 @@ int			main(int argc, char **argv)
 	}
 	return (0);
 }
-*/
