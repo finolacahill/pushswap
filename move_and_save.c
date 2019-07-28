@@ -12,21 +12,30 @@
 
 #include "pushswap.h"
 
-void	ft_count_moves(t_list *instructions)
+void	ft_perf_quicksort(int *array, int first, int last)
 {
-	t_list	*t;
-	int		i;
+	int i;
+	int j;
+	int pivot;
 
-	i = 0;
-	t = instructions;
-	if (!(instructions))
-		return ;
-	while (t->next != NULL)
+	if (first < last)
 	{
-		t = t->next;
-		++i;
+		pivot = first;
+		i = first;
+		j = last - 1;
+		while (i < j)
+		{
+			while (array[i] <= array[pivot] && i < last - 1)
+				i++;
+			while (array[j] > array[pivot])
+				j--;
+			if (i < j)
+				ft_swap(&array[i], &array[j]);
+		}
+		ft_swap(&array[pivot], &array[j]);
+		ft_perf_quicksort(array, first, j);
+		ft_perf_quicksort(array, j + 1, last);
 	}
-	ft_printf("%d moves made.\n", i);
 }
 
 void	ft_move(char *move, t_stacks *stack)

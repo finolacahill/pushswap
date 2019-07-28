@@ -44,12 +44,16 @@ int		ft_count_numbers(char **arg, int limit)
 {
 	int	i;
 	int	count;
+	int new;
 
 	count = 0;
+	new = 0;
 	i = 0;
 	while (i < limit)
 	{
-		count = count + ft_is_single_arg(arg[i]);
+		if ((new = ft_is_single_arg(arg[i])) < 0)
+			return (new);
+		count = count + new;
 		if (count < 0)
 			return (count);
 		++i;
