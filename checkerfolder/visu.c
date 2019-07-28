@@ -10,29 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pushswap.h"
-
-void	stack_normalizer(t_stacks *stack)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < stack->a_count)
-	{
-		j = 0;
-		while (j < stack->a_count)
-		{
-			if (stack->a[i] == stack->c[j])
-			{
-				stack->a[i] = j + 1;
-				j = stack->a_count;
-			}
-			++j;
-		}
-		++i;
-	}
-}
+#include "../pushswap.h"
 
 int		quit_window(int i, SDL_Renderer *renderer, SDL_Window *window)
 {
@@ -44,6 +22,7 @@ int		quit_window(int i, SDL_Renderer *renderer, SDL_Window *window)
 		SDL_DestroyRenderer(renderer);
 	if (NULL != window)
 		SDL_DestroyWindow(window);
+	SDL_QuitSubSystem(SDL_INIT_VIDEO);
 	SDL_Quit();
 	return (0);
 }

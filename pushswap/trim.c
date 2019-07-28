@@ -6,11 +6,11 @@
 /*   By: fcahill <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/10 22:39:47 by fcahill           #+#    #+#             */
-/*   Updated: 2019/07/11 11:54:54 by fcahill          ###   ########.fr       */
+/*   Updated: 2019/07/28 15:20:47 by fcahill          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pushswap.h"
+#include "../pushswap.h"
 
 static int	read_repeats(t_list *t, t_list *t2)
 {
@@ -59,14 +59,10 @@ static void	trim_doubles(t_list *instructions)
 	}
 }
 
-static int	read_rotations(t_list *t, t_list *t2)
+static int	read_rotations(t_list *t, t_list *t2, int len)
 {
-	char	*a;
-	int		len;
-
-	len = 0;
-	if (t->content_size != 0 && t->next->content_size != 0)
-	{
+	if (t->content_size == 0 || t->next->content_size == 0)
+		return (len);
 	if (((ft_strcmp(t->content, "ra") == 0) &&
 		(ft_strcmp(t->next->content, "rb") == 0)) ||
 		((ft_strcmp(t->content, "rb") == 0) &&
@@ -77,7 +73,6 @@ static int	read_rotations(t_list *t, t_list *t2)
 		((ft_strncmp(t->content, "rrb", 3) == 0) &&
 		(ft_strncmp(t->next->content, "rra", 3) == 0)))
 		len = 4;
-	}
 	if (len > 0)
 	{
 		free(t->content);
@@ -98,8 +93,7 @@ static int	ft_trim_rotations(t_list *t, t_list *t2, t_list *instructions)
 	flag = 0;
 	while (t2 != NULL && t2->next != NULL)
 	{
-		flag = read_rotations(t, t2);
-		if (flag == -1)
+		if ((flag = read_rotations(t, t2, 0)) < 0)
 			return (0);
 		if (flag > 0)
 		{

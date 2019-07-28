@@ -83,14 +83,16 @@ int		ft_check_instructions(char *move);
 void 	free_stacks(t_stacks stack);
 int		is_split(char name, int block, int median, t_stacks *stack);
 int		get_split_med(int block, int rev, int count, int *stack);
-char	*ft_addchar(char *str, char c);
+//char	*ft_addchar(char *str, char c);
 int	instruction_error(char *instruction);
-int	ft_get_instructions(char *instruction, t_stacks stack);
+int	ft_get_instructions(int flag, char *instruction, t_stacks stack);
 int		partial_rotate(int rev, int block, t_stacks *stack, t_list **instructions);
+//char	*ft_addchar(char **str, char c);
+int		ft_get_instructions(int flag, char *instruction, t_stacks stack);
 
 //visu
 int quit_window(int i, SDL_Renderer *renderer, SDL_Window *window);
 int		draw_stacks(t_stacks stack, SDL_Renderer *renderer);
 void stack_normalizer(t_stacks *stack);
-int init_window(SDL_Renderer **renderer, SDL_Window *window);
+int init_window(SDL_Renderer **renderer, SDL_Window **window, t_stacks stack);
 #endif
