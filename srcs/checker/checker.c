@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pushswap.h"
+#include "../../pushswap.h"
 
-void	stack_normalizer(t_stacks *stack)
+void		stack_normalizer(t_stacks *stack)
 {
-	int	i;
-	int	j;
+	int			i;
+	int			j;
 
 	i = 0;
 	while (i < stack->a_count)
@@ -56,6 +56,7 @@ static int	checker(int flag, int i, int argc, char **argv)
 		return (ft_pushswap_ok(&stack));
 	else
 		return (ft_pushswap_ko(&stack));
+	return (0);
 }
 
 static int	checker_usage(void)
@@ -65,8 +66,8 @@ static int	checker_usage(void)
 	ft_printf("and then reads sorting instructions from the stdin.\n");
 	ft_printf("If the instructions successfully sort the args ");
 	ft_printf("it prints 'OK', if not it prints 'KO'.\n");
-	ft_printf("If args are not integers or ");
-	ft_printf("instructions invalid it will print 'Error'.\n");
+	ft_printf("If args are not integers, duplicates, or ");
+	ft_printf("instructions are invalid it will print 'Error'.\n");
 	ft_printf("The [-v] flag will launch a visulizer ");
 	ft_printf("of the sorting process.\n");
 	ft_printf("The [-c] will print a count of how many moves were made.\n");
@@ -105,12 +106,6 @@ int			main(int argc, char **argv)
 
 	i = 1;
 	flag = 0;
-	if (argc == 1)
-	{
-		
-		return(checker_usage());
-		while (1);
-	}
 	while (flag != 1 && i < argc && argv[i][0] == '-')
 	{
 		if ((flag = parser(flag, argv[i])) == 0)
@@ -118,10 +113,6 @@ int			main(int argc, char **argv)
 		++i;
 	}
 	if (flag != 1 && argc > 1 && i < argc)
-		{
-			
-			return(checker(flag, i, argc, argv));
-			while (1);}
-
+		return (checker(flag, i, argc, argv));
 	return (0);
 }

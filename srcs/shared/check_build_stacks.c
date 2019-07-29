@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pushswap.h"
+#include "../../pushswap.h"
 
 int		*ft_intarraycpy(int *source, int *dest, int n)
 {
@@ -51,7 +51,7 @@ int		ft_count_numbers(char **arg, int limit)
 	i = 0;
 	while (i < limit)
 	{
-		if ((new = ft_is_single_arg(arg[i])) < 0)
+		if ((new = is_single_arg(arg[i])) < 0)
 			return (new);
 		count = count + new;
 		if (count < 0)

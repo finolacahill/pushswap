@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pushswap.h"
+#include "../../pushswap.h"
 
 void	ft_perf_quicksort(int *array, int first, int last)
 {
@@ -58,7 +58,7 @@ void	ft_move(char *move, t_stacks *stack)
 		ft_revrotate(stack->b, stack->b_count);
 }
 
-int		ft_move_and_save(char *move, t_stacks *stack, t_list **instructions)
+int		ft_move_and_save(char *move, t_stacks *s, t_list **instruc)
 {
 	t_list	*new_move;
 	char	*str;
@@ -68,10 +68,10 @@ int		ft_move_and_save(char *move, t_stacks *stack, t_list **instructions)
 	if (!(str = (char *)malloc(sizeof(char) * len + 1)))
 		return (0);
 	ft_strcpy(str, move);
-	ft_move(move, stack);
+	ft_move(move, s);
 	if (!(new_move = ft_lstnew(&*str, len + 1)))
 		return (0);
-	ft_lstaddend(*instructions, new_move);
+	ft_lstaddend(*instruc, new_move);
 	free(str);
 	return (1);
 }

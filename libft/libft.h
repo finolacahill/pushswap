@@ -88,4 +88,6 @@ void				*ft_revmemcpy(void *dst, const void *src, size_t n);
 int					ft_wordcounter(char const *s, char c);
 void				ft_swap(int *a, int *b);
 int					ft_numlen(long long n);
+long long			ft_atol(const char *str);
+
 #endif

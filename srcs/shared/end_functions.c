@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pushswap.h"
+#include "../../pushswap.h"
 
 void	free_stacks(t_stacks stack)
 {
@@ -24,7 +24,7 @@ void	free_stacks(t_stacks stack)
 
 int		ft_pushswap_error(t_stacks *stack, t_list *instruction)
 {
-	if (instruction)
+	if (instruction != NULL)
 		free(instruction);
 	if (stack != NULL)
 		free_stacks(*stack);

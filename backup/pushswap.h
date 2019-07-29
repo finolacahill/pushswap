@@ -6,7 +6,7 @@
 /*   By: fcahill <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/05 21:51:32 by fcahill           #+#    #+#             */
-/*   Updated: 2019/05/22 11:47:47 by fcahill          ###   ########.fr       */
+/*   Updated: 2019/07/28 15:24:30 by fcahill          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int				ft_move_and_save(char *move, t_stacks *stacks, t_list **instructions);
 void	ft_move(char *move, t_stacks *stack);
 
 void			ft_print_stacks(t_stacks *stack);
-int				ft_pushswap_error(t_stacks *stack);
+int				ft_pushswap_error(t_stacks *stack, t_list *instruction);
 int				ft_pushswap_ko(t_stacks *stack);
 int				ft_pushswap_ok(t_stacks *stack);
 int				ft_create_stacks(int *a, int *b, char **arg);
@@ -95,4 +95,5 @@ int quit_window(int i, SDL_Renderer *renderer, SDL_Window *window);
 int		draw_stacks(t_stacks stack, SDL_Renderer *renderer);
 void stack_normalizer(t_stacks *stack);
 int init_window(SDL_Renderer **renderer, SDL_Window **window, t_stacks stack);
+int	instructions_error(char *instruction);
 #endif
